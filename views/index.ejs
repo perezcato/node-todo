@@ -2,10 +2,47 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href="/stylesheets/tailwind.min.css" />
+    <link rel='stylesheet' href="/stylesheets/style.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <header class="text-center py-4">
+      <h1 class="font-bold text-4xl"><%= title %></h1>
+      <p class="text-sm text-gray-600">Welcome to <%= title %></p>
+    </header>
+    <main>
+      <div class="input-form text-center mt-10">
+        <form action="/todo" method="post">
+          <input type="text" name="todo" placeholder="Add todo"
+                 class="border border-2 py-3 px-3 text-md
+                      rounded-md focus:outline-none w-2/5 focus:shadow">
+          <button class="bg-green-400 py-3 ml-4 rounded-md px-8 text-md text-white
+                         hover:bg-green-600">Add</button>
+        </form>
+      </div>
+      <div class="todoList">
+        <% if(todoList.length === 0){ %>
+          <div class="text-center py-10">
+            The todo list is empty
+          </div>
+        <% } else { %>
+          <div class="py-10">
+            <% todoList.forEach((item,index) => { %>
+              <div class="todo-item text-center w-3/6 ml-auto mr-auto py-2">
+                  <form action="/todo/<%= index %>" method="post">
+                      <span class="underline text-blue-700"><%= item.todo %></span>
+                      <button type="submit" class="text-blue-800">
+                          x
+                      </button>
+                  </form>
+              </div>
+            <% }) %>
+          </div>
+        <%}%>
+      </div>
+    </main>
+    <footer>
+
+    </footer>
   </body>
 </html>
